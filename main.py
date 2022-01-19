@@ -22,16 +22,9 @@ schedule.every(11).seconds.do(chk_btn_close)
 schedule.every(8).seconds.do(chk_treasure_h)
 # # ------------------------------------------------------------
 
-# while True:
-#     print("Processing...")
-#     login()
-#     time.sleep(1)
-
 def start():
     global running 
     running = True
-    # chk_status()
-    # processing()
     threading.Thread(target=mainfunc).start()
     txt_status.configure(text = 'Processing', foreground="green")
     # threading.Thread(target=chk_status).start()
@@ -46,7 +39,12 @@ def mainfunc():
     if running:
         schedule.run_pending()
         login()
-        root.after(2000,mainfunc)
+        # root.after(2000,mainfunc)
+        
+print("Processing")
+while True:
+    mainfunc()
+    time.sleep(2)
 
 # def processing():
 #     threading.Thread(target=mainfunc).start()
@@ -57,6 +55,7 @@ def mainfunc():
 #     #     # login()
 #     #     gc.collect()
 #     #     root.after(2000, processing)
+
 
 def chk_status():
     global running 
@@ -75,15 +74,14 @@ def chk_status():
     else:
         txt_status.configure(text = 'Stopped', foreground="red")
 
-# schedule.every(1).seconds.do(chk_status)
-root = Tk(className='Bot')
-frm = ttk.Frame(root, padding=10)
-frm.grid()
-root.geometry("230x100")
-btn_start = ttk.Button(frm, text="Start", command=start).grid(column=1, row=0)
-ttk.Button(frm, text="Stop", command=stop).grid(column=2, row=0)
-ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
-ttk.Label(frm, text="Status : ").grid(column=1, row=2)
-txt_status = ttk.Label(frm, text="Stopped", foreground="red")
-txt_status.grid(column=2, row=2)
-root.mainloop()
+# root = Tk(className='Bot')
+# frm = ttk.Frame(root, padding=10)
+# frm.grid()
+# root.geometry("230x100")
+# btn_start = ttk.Button(frm, text="Start", command=start).grid(column=1, row=0)
+# ttk.Button(frm, text="Stop", command=stop).grid(column=2, row=0)
+# ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
+# ttk.Label(frm, text="Status : ").grid(column=1, row=2)
+# txt_status = ttk.Label(frm, text="Stopped", foreground="red")
+# txt_status.grid(column=2, row=2)
+# root.mainloop()
