@@ -22,29 +22,34 @@ schedule.every(11).seconds.do(chk_btn_close)
 schedule.every(8).seconds.do(chk_treasure_h)
 # # ------------------------------------------------------------
 
-def start():
-    global running 
-    running = True
-    threading.Thread(target=mainfunc).start()
-    txt_status.configure(text = 'Processing', foreground="green")
-    # threading.Thread(target=chk_status).start()
-
-def stop():
-    global running 
-    running = False
-    txt_status.configure(text = 'Stopped', foreground="red")
-    # chk_status()
-
-def mainfunc():
-    if running:
-        schedule.run_pending()
-        login()
-        # root.after(2000,mainfunc)
-        
-print("Processing")
 while True:
-    mainfunc()
-    time.sleep(2)
+    errorHandle()
+    login()
+    wakeup()
+    time.sleep(1)
+# def start():
+#     global running 
+#     running = True
+#     threading.Thread(target=mainfunc).start()
+#     txt_status.configure(text = 'Processing', foreground="green")
+#     # threading.Thread(target=chk_status).start()
+
+# def stop():
+#     global running 
+#     running = False
+#     txt_status.configure(text = 'Stopped', foreground="red")
+#     # chk_status()
+
+# def mainfunc():
+#     if running:
+#         schedule.run_pending()
+#         login()
+#         # root.after(2000,mainfunc)
+        
+# print("Processing")
+# while True:
+#     mainfunc()
+#     time.sleep(2)
 
 # def processing():
 #     threading.Thread(target=mainfunc).start()
