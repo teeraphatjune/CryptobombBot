@@ -1,8 +1,11 @@
 import pyautogui
 import time
-from main import *
-timeout = 5   # [seconds]
-# timeout_start = time.time()
+timeout = 10   # [seconds]
+timeout_start = time.time()
+
+def setTime():
+    global timeout_start
+    timeout_start = time.time()
 
 def login():
     conpos = pyautogui.locateAllOnScreen("./resources/connect.png"
@@ -20,16 +23,20 @@ def login():
         time.sleep(1)
 
 def sign(): # PRIVATE
-    while time.time() < time.time() + timeout:
+    setTime()
+    while time.time() < timeout_start + timeout:
+        print("sign")
         sign = pyautogui.locateOnScreen("./resources/sign.png"
         , confidence=0.95)
         if sign is not None:
             pyautogui.click(sign)
-            time.sleep(3)
             break
+        time.sleep(1)
+        
 
 def treasure_h():
-    while time.time() < time.time() + timeout:
+    setTime()
+    while time.time() < timeout_start + timeout:
         if errorHandle():
             break
         pos = pyautogui.locateOnScreen("./resources/treasure.png"
@@ -40,16 +47,20 @@ def treasure_h():
         time.sleep(3)
 
 def extendsign(): # PRIVATE
-    while time.time() < time.time() + timeout:
-        time.sleep(3)      
+    setTime()
+    while time.time() < timeout_start + timeout:
+        print("extendsign")
         noti = pyautogui.locateOnScreen("./resources/mmnt.png"
         , confidence=0.95)
         if noti is not None:
             pyautogui.doubleClick(noti)
             return True
+        time.sleep(1)
 
 def wakeup():
-    while time.time() < time.time() + timeout:
+    setTime()
+    while time.time() < timeout_start + timeout:
+        print("wakeup")
         if errorHandle():
             break
         pos_heroes = pyautogui.locateOnScreen("./resources/heroes.png"
@@ -62,14 +73,16 @@ def wakeup():
     , confidence=0.9)
     if pos_sleepall is not None:
         pyautogui.doubleClick(pos_sleepall, interval=0.3)
-    while time.time() < time.time() + timeout:
+    setTime()
+    while time.time() < timeout_start + timeout:
         pos_wakeall = pyautogui.locateOnScreen("./resources/wakeall.png"
         , confidence=0.9)
         if pos_wakeall is not None:
             pyautogui.doubleClick(pos_wakeall, interval=0.3)
             break
         time.sleep(3)
-    while time.time() < time.time() + timeout:
+    setTime()
+    while time.time() < timeout_start + timeout:
         pos_close = pyautogui.locateOnScreen("./resources/heroes_close.png"
         , confidence=0.97)
         if pos_close is not None:
@@ -79,7 +92,8 @@ def wakeup():
     time.sleep(3)
 
 def sleepall():
-    while time.time() < time.time() + timeout:
+    setTime()
+    while time.time() < timeout_start + timeout:
         pos_sleepall = pyautogui.locateOnScreen("./resources/sleepall.png"
         , confidence=0.97)
         if pos_sleepall:
@@ -96,12 +110,14 @@ def resetwalk():
             treasure_h()
 
 def isLobby():
-    while time.time() < time.time() + 15:
+    setTime()
+    while time.time() < timeout_start + 20:
+        print("isLobby")
         pos_lobby = pyautogui.locateOnScreen("./resources/lobby.png"
         , confidence=0.97)
         if pos_lobby is not None:
             return True
-    time.sleep(1)
+        time.sleep(1)
 
 def errorHandle():
     pos_error = pyautogui.locateAllOnScreen("./resources/error.png"

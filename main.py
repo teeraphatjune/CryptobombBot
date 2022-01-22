@@ -22,62 +22,83 @@ schedule.every(11).seconds.do(chk_btn_close)
 schedule.every(8).seconds.do(chk_treasure_h)
 # # ------------------------------------------------------------
 
+# counter = 0
+
+# time_duration = 4
+# time_start = time.time()
+
+# def setTime():
+#     global time_start
+#     time_start = time.time()
+
+# def testcount():
+#     global counter
+#     setTime()
+#     while time.time() < time_start + time_duration:
+#         counter += 1
+#         print(counter)
+#         time.sleep(1)
+
 def start():
     global running 
     running = True
-    threading.Thread(target=mainfunc).start()
+    t1 = threading.Thread(target=mainfunc)
+    t1.start()
     txt_status.configure(text = 'Processing', foreground="green")
     # threading.Thread(target=chk_status).start()
 
 def stop():
+    # testcount()
     global running 
     running = False
     txt_status.configure(text = 'Stopped', foreground="red")
-    # chk_status()
 
 def mainfunc():
     if running:
-        schedule.run_pending()
-        login()
-        root.after(2000,mainfunc)
+        while True:
+            schedule.run_pending()
+            login()
+            time.sleep(2)
+        # root.after(2000,mainfunc)
         
 # print("Processing")
 # while True:
 #     mainfunc()
 #     time.sleep(2)
 
-def processing():
-    threading.Thread(target=mainfunc).start()
-    # if running:
-    #     # threading.Thread(target=chk_status).start()
-    #     # chk_btn_close()
-    #     # chk_treasure_h()
-    #     # login()
-    #     gc.collect()
-    #     root.after(2000, processing)
+# def processing():
+#     threading.Thread(target=mainfunc).start()
+#     # if running:
+#     #     # threading.Thread(target=chk_status).start()
+#     #     # chk_btn_close()
+#     #     # chk_treasure_h()
+#     #     # login()
+#     #     gc.collect()
+#     #     root.after(2000, processing)
 
 
 def chk_status():
     global running 
-    if running:
-        global counter
-        my_list = [".", "..", "...", ""]
-        if counter != 3:
-            txt_status.config(text="Processing{}".format(my_list[counter]), foreground="green")
-            counter += 1
-            # root.after(1000, chk_status)
+    while True:
+        if running:
+            global counter
+            my_list = [".", "..", "...", ""]
+            if counter != 3:
+                txt_status.config(text="Processing{}".format(my_list[counter]), foreground="green")
+                counter += 1
+                # root.after(1000, chk_status)
+            else:
+                txt_status.config(text="Processing{}".format(my_list[counter]), foreground="green")
+                counter = 0
+                # root.after(1000, chk_status)
         else:
-            txt_status.config(text="Processing{}".format(my_list[counter]), foreground="green")
-            counter = 0
-            # root.after(1000, chk_status)
-        root.after(1000, chk_status)
-    else:
-        txt_status.configure(text = 'Stopped', foreground="red")
+            txt_status.configure(text = 'Stopped', foreground="red")
+            break
 
 root = Tk(className='Bot')
 frm = ttk.Frame(root, padding=10)
 frm.grid()
-root.geometry("230x100")
+root.geometry("250x100")
 btn_start = ttk.Button(frm, text="Start", command=start).grid(column=1, row=0)
 ttk.Button(frm, text="Stop", command=stop).grid(column=2, row=0)
 ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
