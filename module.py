@@ -1,5 +1,6 @@
 import pyautogui
 import time
+from main import *
 timeout = 5   # [seconds]
 # timeout_start = time.time()
 
@@ -9,6 +10,8 @@ def login():
     # for pos in conpos:
     if conpos is not None:
         for i in conpos:
+            if errorHandle():
+                break
             pyautogui.doubleClick(i, interval=0.3)
             extendsign()
             sign()

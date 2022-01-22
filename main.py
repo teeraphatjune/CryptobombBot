@@ -39,22 +39,22 @@ def mainfunc():
     if running:
         schedule.run_pending()
         login()
-        # root.after(2000,mainfunc)
+        root.after(2000,mainfunc)
         
-print("Processing")
-while True:
-    mainfunc()
-    time.sleep(2)
+# print("Processing")
+# while True:
+#     mainfunc()
+#     time.sleep(2)
 
-# def processing():
-#     threading.Thread(target=mainfunc).start()
-#     # if running:
-#     #     # threading.Thread(target=chk_status).start()
-#     #     # chk_btn_close()
-#     #     # chk_treasure_h()
-#     #     # login()
-#     #     gc.collect()
-#     #     root.after(2000, processing)
+def processing():
+    threading.Thread(target=mainfunc).start()
+    # if running:
+    #     # threading.Thread(target=chk_status).start()
+    #     # chk_btn_close()
+    #     # chk_treasure_h()
+    #     # login()
+    #     gc.collect()
+    #     root.after(2000, processing)
 
 
 def chk_status():
@@ -74,14 +74,14 @@ def chk_status():
     else:
         txt_status.configure(text = 'Stopped', foreground="red")
 
-# root = Tk(className='Bot')
-# frm = ttk.Frame(root, padding=10)
-# frm.grid()
-# root.geometry("230x100")
-# btn_start = ttk.Button(frm, text="Start", command=start).grid(column=1, row=0)
-# ttk.Button(frm, text="Stop", command=stop).grid(column=2, row=0)
-# ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
-# ttk.Label(frm, text="Status : ").grid(column=1, row=2)
-# txt_status = ttk.Label(frm, text="Stopped", foreground="red")
-# txt_status.grid(column=2, row=2)
-# root.mainloop()
+root = Tk(className='Bot')
+frm = ttk.Frame(root, padding=10)
+frm.grid()
+root.geometry("230x100")
+btn_start = ttk.Button(frm, text="Start", command=start).grid(column=1, row=0)
+ttk.Button(frm, text="Stop", command=stop).grid(column=2, row=0)
+ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
+ttk.Label(frm, text="Status : ").grid(column=1, row=2)
+txt_status = ttk.Label(frm, text="Stopped", foreground="red")
+txt_status.grid(column=2, row=2)
+root.mainloop()
