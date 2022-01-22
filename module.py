@@ -27,6 +27,8 @@ def sign(): # PRIVATE
 
 def treasure_h():
     while time.time() < time.time() + timeout:
+        if errorHandle():
+            break
         pos = pyautogui.locateOnScreen("./resources/treasure.png"
         , confidence=0.97)
         if pos:
@@ -45,6 +47,8 @@ def extendsign(): # PRIVATE
 
 def wakeup():
     while time.time() < time.time() + timeout:
+        if errorHandle():
+            break
         pos_heroes = pyautogui.locateOnScreen("./resources/heroes.png"
         , confidence=0.97)
         if pos_heroes is not None:
@@ -102,6 +106,7 @@ def errorHandle():
     for i in pos_error:
         if pos_error is not None:
             pyautogui.doubleClick(i, interval=0.3)
+            return True
 
 def awake_while_playing():
     pos_back = pyautogui.locateAllOnScreen("./resources/btn_back.png"
