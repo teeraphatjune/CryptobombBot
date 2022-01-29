@@ -3,8 +3,8 @@ import schedule
 from tkinter import *
 from tkinter import ttk
 import configparser
-import gc
 import threading
+import sys
 
 running = True
 counter = 0
@@ -22,23 +22,6 @@ schedule.every(11).seconds.do(chk_btn_close)
 schedule.every(8).seconds.do(chk_treasure_h)
 # # ------------------------------------------------------------
 
-# counter = 0
-
-# time_duration = 4
-# time_start = time.time()
-
-# def setTime():
-#     global time_start
-#     time_start = time.time()
-
-# def testcount():
-#     global counter
-#     setTime()
-#     while time.time() < time_start + time_duration:
-#         counter += 1
-#         print(counter)
-#         time.sleep(1)
-
 def start():
     global running 
     running = True
@@ -54,17 +37,15 @@ def stop():
     txt_status.configure(text = 'Stopped', foreground="red")
 
 def mainfunc():
-    if running:
-        while True:
+    while True:
+        if running:
             schedule.run_pending()
             login()
-            time.sleep(2)
+            # time.sleep(2)
+        else:
+            break
+        time.sleep(2)
         # root.after(2000,mainfunc)
-        
-# print("Processing")
-# while True:
-#     mainfunc()
-#     time.sleep(2)
 
 # def processing():
 #     threading.Thread(target=mainfunc).start()
@@ -94,6 +75,9 @@ def chk_status():
         else:
             txt_status.configure(text = 'Stopped', foreground="red")
             break
+def exitprogram():
+    root.destroy
+    sys.exit()
 
 root = Tk(className='Bot')
 frm = ttk.Frame(root, padding=10)
@@ -101,7 +85,7 @@ frm.grid()
 root.geometry("250x100")
 btn_start = ttk.Button(frm, text="Start", command=start).grid(column=1, row=0)
 ttk.Button(frm, text="Stop", command=stop).grid(column=2, row=0)
-ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=1)
+ttk.Button(frm, text="Quit", command=exitprogram).grid(column=1, row=1)
 ttk.Label(frm, text="Status : ").grid(column=1, row=2)
 txt_status = ttk.Label(frm, text="Stopped", foreground="red")
 txt_status.grid(column=2, row=2)

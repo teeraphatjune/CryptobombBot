@@ -3,6 +3,14 @@ import time
 timeout = 10   # [seconds]
 timeout_start = time.time()
 
+def locate_all(path, confidence=0.9, distance=10):
+    distance = pow(distance, 2)
+    elements = []
+    for element in pyautogui.locateAllOnScreen(path, confidence=confidence):
+        if all(map(lambda x: pow(element.left - x.left, 2) + pow(element.top - x.top, 2) > distance, elements)):
+            elements.append(element)
+    return elements
+
 def setTime():
     global timeout_start
     timeout_start = time.time()
@@ -40,7 +48,7 @@ def treasure_h():
         if errorHandle():
             break
         pos = pyautogui.locateOnScreen("./resources/treasure.png"
-        , confidence=0.97)
+        , confidence=0.9)
         if pos:
             pyautogui.doubleClick(pos, interval=0.3)
             break
@@ -53,9 +61,9 @@ def extendsign(): # PRIVATE
         noti = pyautogui.locateOnScreen("./resources/mmnt.png"
         , confidence=0.95)
         if noti is not None:
-            pyautogui.doubleClick(noti)
+            pyautogui.doubleClick(noti, interval=0.3)
             return True
-        time.sleep(1)
+        time.sleep(0.2)
 
 def wakeup():
     setTime()
@@ -73,10 +81,12 @@ def wakeup():
     , confidence=0.9)
     if pos_sleepall is not None:
         pyautogui.doubleClick(pos_sleepall, interval=0.3)
+
     setTime()
     while time.time() < timeout_start + timeout:
+        print("wakeall")
         pos_wakeall = pyautogui.locateOnScreen("./resources/wakeall.png"
-        , confidence=0.9)
+        , confidence=0.8)
         if pos_wakeall is not None:
             pyautogui.doubleClick(pos_wakeall, interval=0.3)
             break
