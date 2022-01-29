@@ -16,8 +16,7 @@ def setTime():
     timeout_start = time.time()
 
 def login():
-    conpos = pyautogui.locateAllOnScreen("./resources/connect.png"
-    , confidence=0.99)
+    conpos = locate_all("./resources/connect.png")
     # for pos in conpos:
     if conpos is not None:
         for i in conpos:
@@ -146,8 +145,7 @@ def awake_while_playing():
             wakeup()
 
 def chk_treasure_h():
-    pos = pyautogui.locateAllOnScreen("./resources/treasure.png"
-    , confidence=0.97)
+    pos = locate_all("./resources/treasure.png")
     if pos is not None:
         for i in pos:
             pyautogui.doubleClick(i, interval=0.3)
