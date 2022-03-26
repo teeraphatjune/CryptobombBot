@@ -1,3 +1,3 @@
 [Set Time]
-resetwalk = 6
+resetwalk = 5
 awake_while_playing = 40

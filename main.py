@@ -41,11 +41,9 @@ def mainfunc():
         if running:
             schedule.run_pending()
             login()
-            # time.sleep(2)
         else:
             break
         time.sleep(2)
-        # root.after(2000,mainfunc)
 
 # def processing():
 #     threading.Thread(target=mainfunc).start()

@@ -3,7 +3,7 @@ import time
 timeout = 10   # [seconds]
 timeout_start = time.time()
 
-def locate_all(path, confidence=0.9, distance=10):
+def locate_all(path, confidence=0.8, distance=10):
     distance = pow(distance, 2)
     elements = []
     for element in pyautogui.locateAllOnScreen(path, confidence=confidence):
@@ -23,6 +23,7 @@ def login():
             if errorHandle():
                 break
             pyautogui.doubleClick(i, interval=0.3)
+            chk_btn_subconnect()
             extendsign()
             sign()
             if isLobby():
@@ -156,3 +157,13 @@ def chk_btn_close():
     if pos_close is not None:
         for i in pos_close:
             pyautogui.doubleClick(i, interval=0.3)
+
+def chk_btn_subconnect():
+    setTime()
+    while time.time() < timeout_start + timeout:
+        pos = pyautogui.locateOnScreen("./resources/subconnect.png"
+        , confidence=0.85)
+        if pos is not None:
+            pyautogui.doubleClick(pos, interval=0.3)
+            return True
+        time.sleep(1)
